@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Boutique</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('produits_all') }}">produits</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+              </li>
+              <li class="nav-item text-right">
+                <a class="nav-link" href="#">panier</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="{{ path('admin_ajout_produit') }}">Ajout d'un
+                          Produit  </a></li>
+                    <li><a class="dropdown-item" href="{{ path('admin_ajout_categorie') }}">Ajout d'une
+                          categorie  </a></li>
+                    <li><a class="dropdown-item" href="{{ path('admin_gestion_produits') }}">Gestion
+                            Produits</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+</header>
+
+<main class="container mb-5 mt-5">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="fixed-bottom bg-dark">
+    <div class="text-center text-white">
+        <p>&copy; tous droits non reservés, Ma Boutique</p>
+    </div>
+</footer>
+{% endblock %}
