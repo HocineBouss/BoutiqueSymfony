@@ -13,9 +13,11 @@
     
     <div class="col-md-2 justify-content-center pt-4">
         <ul class="list-group">
+            <a class="text-decoration-none" href="{{ path("produits_all") }}"> <li class="list-group-item btn btn-primary text-center">All</li> </a>           
             {% for categorie in categories %}
                 <a class="text-decoration-none" href="{{ path('produits_categorie', {id: categorie.id}) }}"> <li class="list-group-item btn btn-primary text-center">{{ categorie.nom }}</li> </a>           
             {% endfor %}
+
         </ul>
     </div>
     

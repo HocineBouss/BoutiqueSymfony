@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card-body text-center">
-                        <h4 class="card-title"><a href="">{{produit.titre}}</a></h4>
+                        <h4 class="card-title"><a class="text-decoration-none text-success" href="{{ path('produit_show', {id: produit.id}) }}">{{produit.titre}}</a></h4>
                         <h6 class="text-muted">ajouté le : {{ produit.dateEnregistrement | date('d/m/Y') }}</h6>
                         <h5>couleur : {{ produit.couleur }}</h5>
                         <h5>taille : {{ produit.taille }}</h5>

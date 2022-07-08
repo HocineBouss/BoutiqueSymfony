@@ -16,39 +16,67 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ path('produits_all') }}">produits</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-              </li>
+
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}  
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                  </li>
+                {% endif %}
+
+
               <li class="nav-item text-right">
-                <a class="nav-link" href="#">panier</a>
+                <a class="nav-link" href="{{ path('panier_show') }}">panier</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Admin
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item" href="{{ path('admin_ajout_produit') }}">Ajout d'un
-                          Produit  </a></li>
-                    <li><a class="dropdown-item" href="{{ path('admin_ajout_categorie') }}">Ajout d'une
-                          categorie  </a></li>
-                    <li><a class="dropdown-item" href="{{ path('admin_gestion_produits') }}">Gestion
-                            Produits</a></li>
-                </ul>
-              </li>
+
+              {% if  is_granted("IS_AUTHENTICATED_FULLY") and  is_granted("ROLE_ADMIN") %}  
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Admin
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{{ path('admin_ajout_produit') }}">Ajout d'un
+                            Produit  </a></li>
+                      <li><a class="dropdown-item" href="{{ path('admin_ajout_categorie') }}">Ajout d'une
+                            categorie  </a></li>
+                      <li><a class="dropdown-item" href="{{ path('admin_gestion_produits') }}">Gestion
+                              Produits</a></li>
+                  </ul>
+                </li>
+              {% endif %}
+
             </ul>
           </div>
+          
+          {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+              <h6>Boujour {{ app.user.nom ~ ' ' ~ app.user.prenom }} !</h6>
+          {% endif %}
+        
         </div>
       </nav>
 </header>
 
 <main class="container mb-5 mt-5">
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-success text-center">
+          {{ message }}
+      </div>
+  {% endfor %}
+
     {% block content %}{% endblock %}
 </main>
 
