@@ -78,5 +78,27 @@ class PanierController extends AbstractController
     }
 
 
+    /**
+     * @Route("/delete/{id<\d+>}", name="delete_produit")
+     */
+    public  function delete($id, SessionInterface $session)
+    {
+        $panier = $session->get("panier", []);
+
+        if(!empty( $panier[$id] ))
+        {
+            unset($panier[$id]);
+        }else{
+            $this->addFlash("error", "Le produit que vous essayer de retirer du panier n'existe pas !!!");
+
+            return $this->redirectToRoute("panier_show");
+        }
+
+        $session->set("panier", $panier);
+
+        $this->addFlash("success", "Le produit à bien été retiré du panier!");
+        return $this->redirectToRoute("panier_show");
+
+    }
 
 }
